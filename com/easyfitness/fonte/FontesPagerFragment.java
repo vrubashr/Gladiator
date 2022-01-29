@@ -25,10 +25,7 @@ public class FontesPagerFragment extends Fragment {
     private FonteHistoryFragment mpHistoryFrag = null;
     private FonteGraphFragment mpGraphFrag = null;
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+    
     public static FontesPagerFragment newInstance(String name, int id) {
         FontesPagerFragment f = new FontesPagerFragment();
 
@@ -76,10 +73,7 @@ public class FontesPagerFragment extends Fragment {
 
                 @Override
                 public void onPageSelected(int position) {
-                    //if (position != 0) {
-                    //pagerAdapter.getItem(position).onHiddenChanged(false);
-                    //Fragment frag1 = (Fragment) pagerAdapter.instantiateItem(mViewPager, mViewPager.getCurrentItem());
-
+                
                     Fragment frag1 = pagerAdapter.getPage(position);
                     if (frag1 != null)
                         frag1.onHiddenChanged(false); // Refresh data
@@ -92,34 +86,7 @@ public class FontesPagerFragment extends Fragment {
                 }
             });
 
-            // Locate the viewpager in activity_main.xml
-            //ViewPager viewPager = view.findViewById(R.id.pager);
-
-            // Set the ViewPagerAdapter into ViewPager
-            //viewPager.setAdapter(new FontesViewPagerAdapter(getChildFragmentManager(), getActivity().getApplicationContext()));
-
-            // Bind the tabs to the ViewPager
-            //PagerSlidingTabStrip tabs = view.findViewById(R.id.tabs);
-            //tabs.setViewPager(viewPager);
-
-/*
-            viewPager.addOnPageChangeListener(new OnPageChangeListener() {
-                @Override
-                public void onPageSelected(int position) {
-                    // N'update pas le fragment principal car c'est lui qui dirige les autres.
-                    //if (position != 0)
-                    //    getViewPagerAdapter().getItem(position).onHiddenChanged(false);
-                }
-
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-                }
-            });
-*/
+         
 
         }
 
@@ -130,8 +97,7 @@ public class FontesPagerFragment extends Fragment {
     //...
 
     public void onPageSelected(int position) {
-        //.instantiateItem() from until .destroyItem() is called it will be able to get the Fragment of page.
-        //Fragment page = pagerAdapter.getPage(position);
+   
     }
 
     public ViewPager getViewPager() {
@@ -146,16 +112,7 @@ public class FontesPagerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
-/*
-            mpFontesFrag = (FontesFragment) getChildFragmentManager().getFragment(savedInstanceState, MainActivity.FONTES);
-            getViewPagerAdapter().restoreFontesFragment(mpFontesFrag);
 
-            mpGraphFrag = (FonteGraphFragment) getChildFragmentManager().getFragment(savedInstanceState, MainActivity.GRAPHIC);
-            getViewPagerAdapter().restoreGraphFragment(mpGraphFrag);
-
-            mpHistoryFrag = (FonteHistoryFragment) getChildFragmentManager().getFragment(savedInstanceState, MainActivity.HISTORY);
-            getViewPagerAdapter().restoreHistoricFragment(mpHistoryFrag);
-*/
         }
     }
 
@@ -165,24 +122,15 @@ public class FontesPagerFragment extends Fragment {
         // call superclass to save any view hierarchy
         super.onSaveInstanceState(outState);
 
-/*
-        if (getViewPagerAdapter().getFontesFragment() != null && getViewPagerAdapter().getFontesFragment().isAdded())
-            getChildFragmentManager().putFragment(outState, MainActivity.FONTES, getViewPagerAdapter().getFontesFragment());
-        if (getViewPagerAdapter().getGraphFragment() != null && getViewPagerAdapter().getGraphFragment().isAdded())
-            getChildFragmentManager().putFragment(outState, MainActivity.GRAPHIC, getViewPagerAdapter().getGraphFragment());
-        if (getViewPagerAdapter().getHistoricFragment() != null && getViewPagerAdapter().getHistoricFragment().isAdded())
-            getChildFragmentManager().putFragment(outState, MainActivity.HISTORY, getViewPagerAdapter().getHistoricFragment());
-*/
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         if (!hidden) {
-            // rafraichit le fragment courant
+           
 
             if (getViewPagerAdapter() != null) {
-                // Moyen de rafraichir tous les fragments. Attention, les View des fragments peuvent avoir ete detruit.
-                // Il faut donc que cela soit pris en compte dans le refresh des fragments.
+              
                 Fragment frag1;
                 for (int i = 0; i < 3; i++) {
                     frag1 = getViewPagerAdapter().getPage(i);
