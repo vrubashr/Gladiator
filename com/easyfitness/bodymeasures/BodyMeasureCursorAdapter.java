@@ -47,9 +47,7 @@ public class BodyMeasureCursorAdapter extends CursorAdapter {
             dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             date = dateFormat.parse(cursor.getString(1));
 
-            //SimpleDateFormat dateFormat2 = new SimpleDateFormat("dd/MM/yyyy");
-            //dateFormat2.setTimeZone(TimeZone.getTimeZone("GMT"));
-            //t1.setText(DateFormat.getDateInstance().format(date));
+           
             DateFormat dateFormat3 = getDateFormat(mContext.getApplicationContext());
             dateFormat3.setTimeZone(TimeZone.getTimeZone("GMT"));
             t1.setText(dateFormat3.format(date));
