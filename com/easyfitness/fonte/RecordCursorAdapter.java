@@ -51,7 +51,7 @@ public class RecordCursorAdapter extends CursorAdapter {
             cdView.setBackgroundColor(context.getResources().getColor(R.color.background_even));
         }
 
-        /* Commun display */
+       
         TextView tDate = view.findViewById(R.id.DATE_CELL);
         Date date;
         String dateString = cursor.getString(cursor.getColumnIndex(DAORecord.DATE));
@@ -69,15 +69,14 @@ public class RecordCursorAdapter extends CursorAdapter {
         TextView tReps = view.findViewById(R.id.REPETITION_CELL);
         TextView tWeight = view.findViewById(R.id.POIDS_CELL);
         TextView tWeightLabel = view.findViewById(R.id.WEIGHT_LABEL);
-        //LinearLayout tSerieLayout = view.findViewById(R.id.SERIE_LAYOUT);
+        
         LinearLayout tRepsLayout = view.findViewById(R.id.REP_LAYOUT);
-        //LinearLayout tWeightLayout = view.findViewById(R.id.WEIGHT_LAYOUT);
-
+       
         if (mCopyClickListener == null) {
             view.findViewById(R.id.copyButton).setVisibility(View.GONE);
         }
 
-        /* Specific display */
+      
         int recordType = cursor.getInt(cursor.getColumnIndex(DAORecord.TYPE));
         if (recordType == DAOMachine.TYPE_FONTE) {
             // UI
@@ -127,14 +126,6 @@ public class RecordCursorAdapter extends CursorAdapter {
             t.setVisibility(View.GONE);
         }
 
-/*
-        if (separatorNeeded) {
-            LinearLayout l = view.findViewById(R.id.ROWFONTELAYOUT);
-            TextView t = new TextView(context);
-            t.setText(DateConverter.dateToLocalDateStr(date, mContext));
-            l.addView(t, 1);
-        }
-*/
 
         ImageView deletImg = view.findViewById(R.id.deleteButton);
         deletImg.setTag(cursor.getLong(cursor.getColumnIndex(DAORecord.KEY)));
@@ -156,9 +147,7 @@ public class RecordCursorAdapter extends CursorAdapter {
         return mInflater.inflate(R.layout.row_fonte, parent, false);
     }
 
-    /*
-     * @pColor : si 1 alors affiche la couleur Odd en premier. Sinon, a couleur Even.
-     */
+
     public void setFirstColorOdd(int pColor) {
         mFirstColorOdd = pColor;
     }
