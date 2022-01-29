@@ -75,9 +75,7 @@ public class CardioFragment extends Fragment {
     private DAOCardio mDb = null;
     private BtnClickListener itemClickDeleteRecord = this::showDeleteDialog;
     private OnClickListener clickAddButton = v -> {
-        /* Reagir au clic pour les boutons 1 et 2*/
-
-        // Verifie que les infos sont completes
+      
         if (dateEdit.getText().toString().isEmpty() ||
             exerciceEdit.getText().toString().isEmpty() ||
             (distanceEdit.getText().toString().isEmpty() &&
@@ -122,8 +120,7 @@ public class CardioFragment extends Fragment {
         getActivity().findViewById(R.id.drawer_layout).requestFocus();
 
         FillRecordTable(exerciceEdit.getText().toString());
-
-        /* Reinitialisation des machines */
+        
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(),
             android.R.layout.simple_dropdown_item_1line, mDb.getAllMachines(getProfil()));
         exerciceEdit.setAdapter(adapter);
@@ -134,23 +131,20 @@ public class CardioFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Select a Machine")
             .setItems(exerciceListArray, (dialog, which) -> {
-                exerciceEdit.setText(exerciceListArray[which]); // Met a jour le text
-                FillRecordTable(exerciceListArray[which]); // Met a jour le tableau
-                //((ViewGroup) machineEdit.getParent()).requestFocus(); //Permet de reactiver le clavier lors du focus sur l'editText
+                exerciceEdit.setText(exerciceListArray[which]); 
+                FillRecordTable(exerciceListArray[which]); 
+                
             });
-        //builder.create();
+        
         builder.show();
     };
     private OnItemLongClickListener itemlongclickDeleteRecord = (listView, view, position, id) -> {
 
-        // Get the cursor, positioned to the corresponding row in the result set
-        //Cursor cursor = (Cursor) listView.getItemAtPosition(position);
-
-        //Log.v("long clicked", "pos: " + position + " id: " + id);
+       
 
         mDb.deleteRecord(id);
 
-        //listView.removeViewInLayout(view);
+       
 
         FillRecordTable(exerciceEdit.getText().toString());
 
@@ -189,10 +183,9 @@ public class CardioFragment extends Fragment {
                     durationEdit.setText("");
                     break;
                 case R.id.editMachine:
-                    ////InputMethodManager imm = getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    //imm.showSoftInput(machineEdit, InputMethodManager.SHOW_IMPLICIT);
+                    
                     exerciceEdit.setText("");
-                    //machineEdit.set.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                    
                     break;
             }
         } else {
@@ -204,14 +197,11 @@ public class CardioFragment extends Fragment {
         }
     };
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+    
     public static CardioFragment newInstance(String name, int id) {
         CardioFragment f = new CardioFragment();
 
-        // Supply index input as an argument.
+        
         Bundle args = new Bundle();
         args.putString("name", name);
         args.putInt("id", id);
@@ -241,10 +231,10 @@ public class CardioFragment extends Fragment {
         launchChronoButton = view.findViewById(R.id.buttonLaunchChrono);
         addButton = view.findViewById(R.id.addExercice);
 
-        /* Initialisation des boutons */
+        
         addButton.setOnClickListener(clickAddButton);
         exerciceListButton.setOnClickListener(onClickMachineList);
-        //launchChronoButton.setOnClickListener();
+        
 
         dateEdit.setOnClickListener(clickDateEdit);
         dateEdit.setOnFocusChangeListener(touchRazEdit);
@@ -255,10 +245,10 @@ public class CardioFragment extends Fragment {
         exerciceEdit.setOnItemClickListener(onItemClickFilterList);
         recordList.setOnItemLongClickListener(itemlongclickDeleteRecord);
 
-        // Initialisation de la base de donnee
+       
         mDb = new DAOCardio(view.getContext());
 
-        // Inflate the layout for this fragment
+        
         return view;
     }
 
@@ -294,7 +284,7 @@ public class CardioFragment extends Fragment {
 
         List<Cardio> records = null;
 
-        // Recupere les valeurs
+        
         if (pMachines == null || pMachines.isEmpty()) {
             records = mDb.getAllCardioRecordsByProfile(getProfil());
         } else {
@@ -302,10 +292,10 @@ public class CardioFragment extends Fragment {
         }
 
         if (records.isEmpty()) {
-            //Toast.makeText(getActivity(), "No records", Toast.LENGTH_SHORT).show();
+            
             recordList.setAdapter(null);
         } else {
-            // ...
+            
             RecordCursorAdapter mTableAdapter = new RecordCursorAdapter(this.getView().getContext(), mDb.getCursor(), 0, itemClickDeleteRecord, null);
             mTableAdapter.setFirstColorOdd(records.size() % 2);
             recordList.setAdapter(mTableAdapter);
@@ -325,8 +315,7 @@ public class CardioFragment extends Fragment {
 
                 FillRecordTable(exerciceEdit.getText().toString());
 
-                //Toast.makeText(getContext(), getResources().getText(R.string.removedid) + " " + idToDelete, Toast.LENGTH_SHORT).show();
-                // Info
+               
                 KToast.infoToast(getActivity(), getResources().getText(R.string.removedid).toString(), Gravity.BOTTOM, KToast.LENGTH_LONG);
                 sDialog.dismissWithAnimation();
             })
@@ -367,54 +356,29 @@ public class CardioFragment extends Fragment {
                 Date date = new Date();
                 dateEdit.setText(dateFormat.format(date));
 
-                /* Initialisation serie */
+               
                 IRecord lLastRecord = mDb.getLastRecord(getProfil());
                 if (lLastRecord != null) {
                     exerciceEdit.setText(lLastRecord.getExercise());
                     distanceEdit.setText("");
                     durationEdit.setText("");
                 } else {
-                    // valeur par defaut
+                    
                     exerciceEdit.setText("");
                     distanceEdit.setText("");
                     durationEdit.setText("");
                 }
 
-                // Set Table
+                
                 FillRecordTable(exerciceEdit.getText().toString());
 
-                /* Init machines list*/
+                
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getView().getContext(),
                     android.R.layout.simple_dropdown_item_1line, exerciceListArray);
                 exerciceEdit.setAdapter(adapter);
             }
         }
     }
-
-/*
-    private void showDeleteDialog(final long idToDelete) {
-        DialogInterface.OnClickListener dialogClickListener = (dialog, which) -> {
-            switch (which) {
-                case DialogInterface.BUTTON_POSITIVE:
-                    mDb.delete(idToDelete);
-
-                    FillRecordTable();
-
-                    Toast.makeText(mActivity, getResources().getText(R.string.removedid) + " " + idToDelete, Toast.LENGTH_SHORT)
-                        .show();
-                    break;
-
-                case DialogInterface.BUTTON_NEGATIVE:
-                    //No button clicked
-                    break;
-            }
-        };
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMessage(getResources().getText(R.string.DeleteRecordDialog)).setPositiveButton(getResources().getText(R.string.global_yes), dialogClickListener)
-            .setNegativeButton(getResources().getText(R.string.global_no), dialogClickListener).show();
-    }
-*/
 
     @Override
     public void onHiddenChanged(boolean hidden) {
