@@ -32,14 +32,7 @@ public class BodyPartListAdapter extends ArrayAdapter<BodyPart> implements View.
         Object object = getItem(position);
         BodyPart dataModel = (BodyPart) object;
 
-/*
-        switch (v.getId()) {
-            case R.id.item_info:
-                Snackbar.make(v, "Release date " + dataModel.getFeature(), Snackbar.LENGTH_LONG)
-                    .setAction("No action", null).show();
-                break;
-        }
-*/
+
     }
 
     @Override
@@ -81,11 +74,11 @@ public class BodyPartListAdapter extends ArrayAdapter<BodyPart> implements View.
         else
             viewHolder.txtLastMeasure.setText("-");
         viewHolder.logo.setImageResource(dataModel.getResourceLogoID());
-        // Return the completed view to render on screen
+       
         return convertView;
     }
 
-    // View lookup cache
+    
     private static class ViewHolder {
         TextView txtID;
         TextView txtName;
