@@ -48,10 +48,7 @@ public class BodyPartListFragment extends Fragment {
         transaction.commit();
     };
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+  
     public static BodyPartListFragment newInstance(String name, int id) {
         BodyPartListFragment f = new BodyPartListFragment();
 
@@ -75,7 +72,7 @@ public class BodyPartListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
+      
         View view = inflater.inflate(R.layout.tab_bodytracking, container, false);
 
         DAOBodyMeasure mdbMeasure = new DAOBodyMeasure(this.getContext());
