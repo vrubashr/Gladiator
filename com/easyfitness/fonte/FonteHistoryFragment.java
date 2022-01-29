@@ -110,10 +110,7 @@ public class FonteHistoryFragment extends Fragment {
         }
     };
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+   
     public static FonteHistoryFragment newInstance(long machineId, long machineProfile) {
         FonteHistoryFragment f = new FonteHistoryFragment();
 
@@ -145,20 +142,20 @@ public class FonteHistoryFragment extends Fragment {
         tReps = view.findViewById(R.id.REPETITION_CELL);
         tWeight = view.findViewById(R.id.POIDS_CELL);
 
-        // Initialisation de l'historique
+      
         mDb = new DAORecord(view.getContext());
 
         mExerciseArray = new ArrayList<>();
         mExerciseArray.add(getContext().getResources().getText(R.string.all).toString());
         mAdapterMachine = new ArrayAdapter<>(
-            getContext(), android.R.layout.simple_spinner_item, //simple_spinner_dropdown_item
+            getContext(), android.R.layout.simple_spinner_item, m
             mExerciseArray);
         mAdapterMachine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         exerciseList.setAdapter(mAdapterMachine);
         mDb.closeCursor();
 
         if (machineIdArg != -1) {
-            // Hide the spinner
+          
             view.findViewById(R.id.tableRowFilterMachine).setVisibility(View.GONE);
             DAOMachine lDbMachine = new DAOMachine(getContext());
             selectedMachine = lDbMachine.getMachine(machineIdArg);
@@ -177,7 +174,7 @@ public class FonteHistoryFragment extends Fragment {
         mAdapterDate.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dateList.setAdapter(mAdapterDate);
 
-        // Initialisation des evenements
+      
         filterList.setOnItemLongClickListener(itemlongclickDeleteRecord);
         dateList.setOnItemSelectedListener(onItemSelectedList);
 
@@ -207,7 +204,7 @@ public class FonteHistoryFragment extends Fragment {
     private void FillRecordTable(String pMachine, String pDate) {
         Cursor oldCursor = null;
 
-        // Retransform date filter value in SQLLite date format
+        
         if (!pDate.equals(getContext().getResources().getText(R.string.all).toString())) {
             Date date;
             try {
@@ -248,7 +245,7 @@ public class FonteHistoryFragment extends Fragment {
                 // If the fragment is used to display record of a specific machine
                 if (machineIdArg == -1) // Refresh the list
                 {
-                    // Initialisation des machines
+                    
                     mExerciseArray.clear();
                     mExerciseArray.add(getContext().getResources().getText(R.string.all).toString());
                     mExerciseArray.addAll(mDb.getAllMachinesStrList(getProfil()));
@@ -257,13 +254,6 @@ public class FonteHistoryFragment extends Fragment {
 
                     exerciseList.setSelection(0); // Default value is "all" when there is a list
 
-/*
-                    if (mAdapterMachine.getPosition(this.getFontesMachine()) != -1) {
-                        exerciseList.setSelection(mAdapterMachine.getPosition(this.getFontesMachine()));
-                    } else { // if not found, set selection to 0
-                        exerciseList.setSelection(0);
-                    }
-*/
                 }
 
                 refreshDates(selectedMachine);
@@ -271,9 +261,7 @@ public class FonteHistoryFragment extends Fragment {
         }
     }
 
-    /**
-     * @param m if m is null then, get the dates for all machines
-     */
+    
     private void refreshDates(Machine m) {
         View fragmentView = getView();
         if (fragmentView != null) {
