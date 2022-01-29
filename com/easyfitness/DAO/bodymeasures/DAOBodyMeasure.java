@@ -43,10 +43,10 @@ public class DAOBodyMeasure extends DAOBase {
     }
 
     /**
-     * @param pDate           date of the weight measure
-     * @param pBodymeasure_id id of the body part
-     * @param pMeasure        body measure
-     * @param pProfileID      profil associated with the measure
+     * pDate           date of the weight measure
+     * pBodymeasure_id id of the body part
+     * pMeasure        body measure
+     * pProfileID      profil associated with the measure
      */
     public void addBodyMeasure(Date pDate, int pBodymeasure_id, float pMeasure, long pProfileID) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -146,9 +146,9 @@ public class DAOBodyMeasure extends DAOBase {
     /**
      * Getting All Measures associated to a Body part for a specific Profile
      *
-     * @param pBodyPartID
-     * @param pProfile
-     * @return List<BodyMeasure>
+     * pBodyPartID
+     * pProfile
+     * List<BodyMeasure>
      */
     public List<BodyMeasure> getBodyPartMeasuresList(long pBodyPartID, Profile pProfile) {
         // Select All Query
@@ -161,8 +161,8 @@ public class DAOBodyMeasure extends DAOBase {
     /**
      * Getting All Measures for a specific Profile
      *
-     * @param pProfile
-     * @return List<BodyMeasure>
+     * pProfile
+     * List<BodyMeasure>
      */
     public List<BodyMeasure> getBodyMeasuresList(Profile pProfile) {
         // Select All Query
@@ -175,9 +175,9 @@ public class DAOBodyMeasure extends DAOBase {
     /**
      * Getting All Measures associated to a Body part for a specific Profile
      *
-     * @param pBodyPartID
-     * @param pProfile
-     * @return List<BodyMeasure>
+     *pBodyPartID
+     *pProfile
+     *List<BodyMeasure>
      */
     public BodyMeasure getLastBodyMeasures(long pBodyPartID, Profile pProfile) {
         // Select All Query
