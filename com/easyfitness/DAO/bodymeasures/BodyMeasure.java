@@ -4,7 +4,7 @@ import java.util.Date;
 
 /* DataBase Object */
 public class BodyMeasure {
-    // Notez que l'identifiant est un long
+    
     private long id;
     private Date mDate;
     private int mBodypart_id;
