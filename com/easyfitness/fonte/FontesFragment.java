@@ -204,7 +204,7 @@ public class FontesFragment extends Fragment {
         }
 
         if (exerciseType == DAOMachine.TYPE_FONTE) {
-            // Verifie que les infos sont completes
+            
             if (serieEdit.getText().toString().isEmpty() ||
                 repetitionEdit.getText().toString().isEmpty() ||
                 poidsEdit.getText().toString().isEmpty()) {
@@ -212,7 +212,7 @@ public class FontesFragment extends Fragment {
                 return;
             }
 
-            /* Convertion du poid */
+           
             float tmpPoids = Float.parseFloat(poidsEdit.getText().toString().replaceAll(",", "."));
             int unitPoids = UnitConverter.UNIT_KG; // Kg
             if (unitSpinner.getSelectedItem().toString().equals(getView().getContext().getString(R.string.LbsUnitLabel))) {
@@ -235,7 +235,6 @@ public class FontesFragment extends Fragment {
             float iTotalWeight = mDbBodyBuilding.getTotalWeightMachine(date, machineEdit.getText().toString());
             int iNbSeries = mDbBodyBuilding.getNbSeries(date, machineEdit.getText().toString());
 
-            //--Launch Rest Dialog
             boolean bLaunchRest = restTimeCheck.isChecked();
             int restTime = 60;
             try {
@@ -254,7 +253,7 @@ public class FontesFragment extends Fragment {
                 cdd.show();
             }
         } else if (exerciseType == DAOMachine.TYPE_CARDIO) {
-            // Verifie que les infos sont completes
+           
             if (durationEdit.getText().toString().isEmpty() && // Only one is mandatory
                 distanceEdit.getText().toString().isEmpty()) {
                 KToast.warningToast(getActivity(), getResources().getText(R.string.missinginfo).toString(), Gravity.BOTTOM, KToast.LENGTH_SHORT);
@@ -292,17 +291,16 @@ public class FontesFragment extends Fragment {
         getActivity().findViewById(R.id.drawer_layout).requestFocus();
         hideKeyboard(v);
 
-        lTableColor = (lTableColor + 1) % 2; // Change la couleur a chaque ajout de donnees
+        lTableColor = (lTableColor + 1) % 2; 
 
         refreshData();
 
-        /* Reinitialisation des machines */
-        // TODO Eviter de recreer a chaque fois l'adapter. On peut utiliser toujours le meme.
+        
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(),
             android.R.layout.simple_dropdown_item_1line, mDb.getAllMachines(getProfil()));
         machineEdit.setAdapter(adapter);
 
-        //Rajoute le moment du dernier ajout dans le bouton Add
+      
         addButton.setText(getView().getContext().getString(R.string.AddLabel) + "\n(" + DateConverter.currentTime() + ")");
 
         mDbCardio.closeCursor();
@@ -322,17 +320,17 @@ public class FontesFragment extends Fragment {
 
             ListView machineList = new ListView(v.getContext());
 
-            // Version avec table Machine
+            
             c = mDbMachine.getAllMachines();
 
             if (c == null || c.getCount() == 0) {
-                //Toast.makeText(getActivity(), R.string.createExerciseFirst, Toast.LENGTH_SHORT).show();
+             
                 KToast.warningToast(getActivity(), getResources().getText(R.string.createExerciseFirst).toString(), Gravity.BOTTOM, KToast.LENGTH_SHORT);
                 machineList.setAdapter(null);
             } else {
                 if (machineList.getAdapter() == null) {
                     MachineCursorAdapter mTableAdapter = new MachineCursorAdapter(v.getContext(), c, 0, mDbMachine);
-                    //MachineArrayFullAdapter lAdapter = new MachineArrayFullAdapter(v.getContext(),records);
+            
                     machineList.setAdapter(mTableAdapter);
                 } else {
                     MachineCursorAdapter mTableAdapter = ((MachineCursorAdapter) machineList.getAdapter());
@@ -385,10 +383,7 @@ public class FontesFragment extends Fragment {
                 showTimePicker();
                 break;
             case R.id.editMachine:
-                //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                //imm.showSoftInput(machineEdit, InputMethodManager.SHOW_IMPLICIT);
-                //machineEdit.setText("");
-                //machineEdit.set.setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+           
                 break;
         }
     };
@@ -429,10 +424,7 @@ public class FontesFragment extends Fragment {
         }
     };
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+
     public static FontesFragment newInstance(String name, int id) {
         FontesFragment f = new FontesFragment();
 
@@ -446,9 +438,7 @@ public class FontesFragment extends Fragment {
     }
 
     private void showRecordListMenu(final long id) {
-        // Get the cursor, positioned to the corresponding row in the result set
-        //Cursor cursor = (Cursor) listView.getItemAtPosition(position);
-
+    
         String[] profilListArray = new String[3];
         profilListArray[0] = getActivity().getResources().getString(R.string.DeleteLabel);
         profilListArray[1] = getActivity().getResources().getString(R.string.EditLabel);
@@ -595,16 +585,15 @@ public class FontesFragment extends Fragment {
             if (m != null) {
                 ExerciseDetailsPager machineDetailsFragment = ExerciseDetailsPager.newInstance(m.getId(), ((MainActivity) getActivity()).getCurrentProfil().getId());
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack so the user can navigate back
+          
                 transaction.replace(R.id.fragment_container, machineDetailsFragment, MainActivity.MACHINESDETAILS);
                 transaction.addToBackStack(null);
-                // Commit the transaction
+             
                 transaction.commit();
             }
         });
 
-        // Inflate the layout for this fragment
+       
         return view;
     }
 
@@ -620,10 +609,10 @@ public class FontesFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    // invoked when the activity may be temporarily destroyed, save the instance state here
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        // call superclass to save any view hierarchy
+   
         super.onSaveInstanceState(outState);
     }
 
@@ -812,7 +801,7 @@ public class FontesFragment extends Fragment {
 
     /*  */
     private void updateRecordTable(String pMachine) {
-        // Informe l'activité de la machine courante
+        
         this.getMainActivity().setCurrentMachine(pMachine);
         getView().post(() -> {
 
@@ -821,8 +810,6 @@ public class FontesFragment extends Fragment {
 
             IRecord r = mDb.getLastRecord(getProfil());
 
-            // Recupere les valeurs
-            //if (pMachine == null || pMachine.isEmpty()) {
             if (r != null)
                 c = mDb.getTop3DatesRecords(getProfil());
             else
@@ -855,11 +842,11 @@ public class FontesFragment extends Fragment {
                 // Version avec table Machine
                 machineListArray = mDbMachine.getAllMachinesArray();
 
-                /* Init machines list*/
+              
                 machineEditAdapter = new MachineArrayFullAdapter(getContext(), machineListArray);
                 machineEdit.setAdapter(machineEditAdapter);
 
-                // If profile has changed
+         
                 mProfile = getProfil();
 
                 if (machineEdit.getText().toString().isEmpty()) {
