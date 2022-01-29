@@ -108,10 +108,7 @@ public class BodyPartDetailsFragment extends Fragment {
         return true;
     };
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+   
     public static BodyPartDetailsFragment newInstance(int bodyPartID, boolean showInput) {
         BodyPartDetailsFragment f = new BodyPartDetailsFragment();
 
@@ -147,7 +144,7 @@ public class BodyPartDetailsFragment extends Fragment {
         bodyToolbar = view.findViewById(R.id.bodyTrackingDetailsToolbar);
         CardView c = view.findViewById(R.id.addMeasureCardView);
 
-        /* Initialisation BodyPart */
+       
         mBodyPartID = getArguments().getInt("bodyPartID", 0);
         BodyPart mBodyPart = new BodyPart(mBodyPartID);
 
@@ -155,13 +152,13 @@ public class BodyPartDetailsFragment extends Fragment {
         if (!getArguments().getBoolean("showInput", true))
             c.setVisibility(View.GONE);
 
-        /* Initialisation des boutons */
+    
         addButton.setOnClickListener(onClickAddMeasure);
         dateEdit.setOnClickListener(clickDateEdit);
         dateEdit.setOnFocusChangeListener(focusDateEdit);
         measureList.setOnItemLongClickListener(itemlongclickDeleteRecord);
 
-        /* Initialisation des evenements */
+      
 
         // Add the other graph
         mChart = view.findViewById(R.id.weightChart);
@@ -189,7 +186,7 @@ public class BodyPartDetailsFragment extends Fragment {
 
     private void DrawGraph(List<BodyMeasure> valueList) {
 
-        // Recupere les enregistrements
+      
         if (valueList.size() < 1) {
             mChart.clear();
             return;
@@ -210,7 +207,7 @@ public class BodyPartDetailsFragment extends Fragment {
         mGraph.draw(yVals);
     }
 
-    /*  */
+
     private void FillRecordTable(List<BodyMeasure> valueList) {
         Cursor oldCursor = null;
 
