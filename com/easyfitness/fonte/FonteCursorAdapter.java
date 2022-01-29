@@ -64,7 +64,7 @@ public class FonteCursorAdapter extends CursorAdapter {
 
 
         TextView t2 = view.findViewById(R.id.MACHINE_CELL);
-        //t2.setText(cursor.getString(cursor.getColumnIndex(cursor.getColumnName(2))));
+       
         t2.setText(cursor.getString(2));
 
         TextView t3 = view.findViewById(R.id.SERIE_CELL);
@@ -97,9 +97,7 @@ public class FonteCursorAdapter extends CursorAdapter {
         return mInflater.inflate(R.layout.row_fonte, parent, false);
     }
 
-    /*
-     * @pColor : si 1 alors affiche la couleur Odd en premier. Sinon, a couleur Even.
-     */
+  
     public void setFirstColorOdd(int pColor) {
         mFirstColorOdd = pColor;
     }
