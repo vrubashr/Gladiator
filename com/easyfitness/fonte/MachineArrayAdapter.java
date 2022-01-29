@@ -34,10 +34,8 @@ public class MachineArrayAdapter extends ArrayAdapter<Machine> implements View.O
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        // Get the data item for this position
-        //BodyPart dataModel = getItem(position);
-        // Check if an existing view is being reused, otherwise inflate the view
-        ViewHolder viewHolder; // view lookup cache stored in tag
+     
+        ViewHolder viewHolder;
 
         final View result;
 
@@ -47,7 +45,6 @@ public class MachineArrayAdapter extends ArrayAdapter<Machine> implements View.O
             convertView = inflater.inflate(R.layout.simplemachinelist_row, parent, false);
             viewHolder.txtID = convertView.findViewById(R.id.LIST_MACHINE_ID);
             viewHolder.txtName = convertView.findViewById(R.id.LIST_MACHINE_NAME);
-            //viewHolder.btFavorite = convertView.findViewById(R.id.LIST_MACHINE_FAVORITE);
 
             convertView.setTag(viewHolder);
         } else {
@@ -58,7 +55,7 @@ public class MachineArrayAdapter extends ArrayAdapter<Machine> implements View.O
         return convertView;
     }
 
-    // View lookup cache
+
     private static class ViewHolder {
         TextView txtID;
         TextView txtName;
