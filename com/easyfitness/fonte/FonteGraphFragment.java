@@ -58,7 +58,7 @@ public class FonteGraphFragment extends Fragment {
         public void onItemSelected(AdapterView<?> parent, View view,
                                    int position, long id) {
             if (parent.getId() == R.id.filterGraphMachine)
-                updateFunctionSpinner(); // Update functions only when changing exercise
+                updateFunctionSpinner(); 
             drawGraph();
         }
 
@@ -85,10 +85,7 @@ public class FonteGraphFragment extends Fragment {
         mGraph.setZoom(currentZoom);
     };
 
-    /**
-     * Create a new instance of DetailsFragment, initialized to
-     * show the text at 'index'.
-     */
+  
     public static FonteGraphFragment newInstance(String name, int id) {
         FonteGraphFragment f = new FonteGraphFragment();
 
@@ -105,7 +102,6 @@ public class FonteGraphFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.tab_graph, container, false);
         mFragmentView = view;
         functionList = view.findViewById(R.id.filterGraphFunction);
@@ -115,7 +111,6 @@ public class FonteGraphFragment extends Fragment {
         Button lastmonthButton = view.findViewById(R.id.lastmonthbutton);
         Button lastweekButton = view.findViewById(R.id.lastweekbutton);
 
-        /* Initialisation des evenements */
         machineList.setOnItemSelectedListener(onItemSelectedList);
         functionList.setOnItemSelectedListener(onItemSelectedList);
 
@@ -124,11 +119,11 @@ public class FonteGraphFragment extends Fragment {
         lastmonthButton.setOnClickListener(onZoomClick);
         lastweekButton.setOnClickListener(onZoomClick);
 
-        /* Initialise le graph */
+     
         mChart = view.findViewById(R.id.graphChart);
         mGraph = new Graph(getContext(), mChart, getResources().getText(R.string.weightLabel).toString());
 
-        /* Initialisation de l'historique */
+        
         if (mDbFonte == null) mDbFonte = new DAOFonte(getContext());
         if (mDbCardio == null) mDbCardio = new DAOCardio(getContext());
         if (mDbMachine == null) mDbMachine = new DAOMachine(getContext());
@@ -142,7 +137,7 @@ public class FonteGraphFragment extends Fragment {
 
         if (getProfil() != null) {
             mMachinesArray = new ArrayList<String>(0); //Data are refreshed on show //mDbFonte.getAllMachinesStrList(getProfil());
-            // lMachinesArray = prepend(lMachinesArray, "All");
+          
             mAdapterMachine = new ArrayAdapter<>(
                 getContext(), android.R.layout.simple_spinner_item,
                 mMachinesArray);
@@ -203,7 +198,7 @@ public class FonteGraphFragment extends Fragment {
         mChart.clear();
         if (machineList.getSelectedItem() == null) {
             return;
-        }// Evite les problemes au cas ou il n'y aurait aucune machine d'enregistree
+        }
         if (functionList.getSelectedItem() == null) {
             return;
         }
@@ -226,11 +221,11 @@ public class FonteGraphFragment extends Fragment {
                 lDAOFunction = DAOFonte.SUM_FCT;
             }
             desc.setText(lMachine + "/" + lFunction + "(kg)");
-            // Recupere les enregistrements
+            
             List<DateGraphData> valueList = mDbFonte.getBodyBuildingFunctionRecords(getProfil(), lMachine, lDAOFunction);
 
             if (valueList.size() <= 0) {
-                // mChart.clear(); Already cleared
+               
                 return;
             }
 
@@ -264,7 +259,7 @@ public class FonteGraphFragment extends Fragment {
                 desc.setText(lMachine + "/" + lFunction + "(km/h)");
             }
 
-            // Recupere les enregistrements
+       
             List<DateGraphData> valueList = mDbCardio.getFunctionRecords(getProfil(), lMachine, lDAOFunction);
 
             if (valueList.size() <= 0) {
@@ -308,14 +303,14 @@ public class FonteGraphFragment extends Fragment {
                 //functionList.setOnItemSelectedListener(onItemSelectedList);
                 if (mAdapterMachine == null) {
                     mMachinesArray = mDbFonte.getAllMachinesStrList();
-                    //Data are refreshed on show
+               
                     mAdapterMachine = new ArrayAdapter<String>(
                         getContext(), android.R.layout.simple_spinner_item,
                         mMachinesArray);
                     mAdapterMachine.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     machineList.setAdapter(mAdapterMachine);
                 } else {
-                    /* Initialisation des machines */
+
                     if (mMachinesArray == null)
                         mMachinesArray = mDbFonte.getAllMachinesStrList();
                     else {
@@ -342,8 +337,7 @@ public class FonteGraphFragment extends Fragment {
 
     private ArrayAdapter<String> getAdapterMachine() {
         ArrayAdapter<String> a;
-        mMachinesArray = new ArrayList<String>(0); //Data are refreshed on show //mDbFonte.getAllMachinesStrList(getProfil());
-        // lMachinesArray = prepend(lMachinesArray, "All");
+        mMachinesArray = new ArrayList<String>(0); 
         mAdapterMachine = new ArrayAdapter<>(
             getContext(), android.R.layout.simple_spinner_item,
             mMachinesArray);
