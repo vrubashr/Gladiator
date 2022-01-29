@@ -1,17 +1,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    //Create new profile option
     <item
         android:id="@+id/create_newprofil"
         android:title="@string/profil_create_new" />
+    //Change profile option
     <item
         android:id="@+id/change_profil"
         android:title="@string/profil_change" />
+    //Rename profile
     <item
         android:id="@+id/rename_profil"
         android:title="@string/renameProfilTitle" />
+    //Delete profile option
     <item
         android:id="@+id/delete_profil"
         android:title="@string/profil_delete" />
+    //Profile page option
     <item
         android:id="@+id/param_profil"
         android:title="@string/profile_page" />
